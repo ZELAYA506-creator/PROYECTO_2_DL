@@ -22,8 +22,14 @@ Este subsistema toma una palabra de 4 bits y calcula los 3 bits de paridad utili
 ![Codificador de Hamming](imgs/Codificador.png)
 
 
+### Decodificador y Verificador de Paridad
 
-*(Aquí irá el diagrama del sistema, o una descripción textual si no tenés imagen)*
+Este subsistema recibe una palabra de 7 bits que puede contener un error. Internamente, se recalculan los bits de paridad y se comparan con los recibidos para generar un **síndrome** de 3 bits. Este síndrome indica la **posición del error** dentro de la palabra.
+
+![Decodificador Hamming](imgs/Decodificador.png)
+
+
+
 
 ## 4. Simulaciones
 
