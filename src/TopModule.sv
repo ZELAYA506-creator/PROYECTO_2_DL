@@ -25,7 +25,7 @@ module TopModule (
     // LEDs muestran directamente el valor corregido
     LED_Display led_bin (
         .corrected_data(dato_corregido),
-        .leds(led_salida)
+        .led(led_salida) 
     );
 
     // Display 7 segmentos (me ayudé con tablas y después metí lógica)
