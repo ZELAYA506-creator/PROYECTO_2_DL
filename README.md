@@ -59,7 +59,7 @@ Este bloque asegura que la información recuperada sea fiel a la enviada.
 
 El resultado final es una palabra **de 4 bits corregida**, lista para ser mostrada por los subsistemas de salida.
 
-![Corrector de Hamming](imgs/Corrector.png)
+![Corrector de Hamming](imgs/corrector.png)
 
 ### Despliegue Binario en LEDs
 
@@ -68,7 +68,7 @@ Cada bit de la palabra encendida activa su LED correspondiente, permitiendo obse
 
 Esto permite una visualización inmediata y en binario del resultado corregido, útil para verificar la salida manualmente durante pruebas.
 
-![Despliegue en LEDs](imgs/Display.png)
+![Despliegue en LEDs](imgs/display.png)
 
 ### Despliegue en Display de 7 Segmentos
 
@@ -79,7 +79,7 @@ Este subsistema permite mostrar en un display de 7 segmentos:
 La selección de qué información mostrar se realiza mediante un **switch selector**.  
 Internamente, se utiliza un **MUX** que escoge entre la palabra corregida y el síndrome, y luego un codificador traduce ese valor a su equivalente en 7 segmentos (segmentos A–G).
 
-![Display 7 Segmentos](imgs/7-Segmentos.png)
+![Display 7 Segmentos](imgs/segmentos.png)
 
 ### Módulo Principal (Top Module)
 
@@ -90,7 +90,7 @@ El **selector de modo** determina si el display de 7 segmentos muestra la palabr
 Este módulo representa el comportamiento del sistema completo y centraliza su operación.
 Es el único módulo que gestiona el flujo de datos **de extremo a extremo**, desde switches de entrada hasta la visualización final.
 
-![Top Module](imgs/Module.png)
+![Top Module](imgs/module.png)
 
 
 
