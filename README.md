@@ -15,6 +15,14 @@ Este proyecto implementa un sistema digital en FPGA que detecta y corrige errore
 
 ## 3. Diagrama de bloques
 
+### Codificador de Hamming
+
+Este subsistema toma una palabra de 4 bits y calcula los 3 bits de paridad utilizando compuertas XOR. Luego produce una palabra de 7 bits codificada.
+
+![Codificador de Hamming](imgs/Codificador.png)
+
+
+
 *(Aquí irá el diagrama del sistema, o una descripción textual si no tenés imagen)*
 
 ## 4. Simulaciones
