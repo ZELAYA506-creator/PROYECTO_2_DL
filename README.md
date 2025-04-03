@@ -92,17 +92,62 @@ Es el único módulo que gestiona el flujo de datos **de extremo a extremo**, de
 
 ![Top Module](imgs/module.png)
 
+## 4. Simplificación de ecuaciones booleanas
+
+### a. Ejemplo de la simplificación de las ecuaciones booleanas usadas para el circuito corrector de error
+
+El corrector recibe como entrada la palabra de 7 bits posiblemente alterada y un **síndrome** de 3 bits generado por el decodificador.  
+Este síndrome indica la posición exacta del bit que presenta un error (si lo hay). El circuito corrector analiza ese valor y **genera una señal de activación** para invertir ese bit específico mediante una operación lógica XOR.
+
+En el siguiente ejemplo, el síndrome `011` indica que el error está en la posición 3. Se genera una señal llamada `ErrorPos₃` con la siguiente lógica:
+
+- Si `ErrorPos₃` se activa, se aplica un XOR al bit en la posición 3 para corregirlo.
+- Si no hay error (`000`), no se modifica ningún bit.
+
+La lógica booleana correspondiente es:
+
+![Ecuación corrector](imgs/errorpos3_y_d1corr.png)
+
+Esto garantiza que el sistema pueda **corregir automáticamente un único error** en cualquier posición de la palabra codificada.
+
+---
+
+### b. Ejemplo de la simplificación de las ecuaciones booleanas usadas para los LEDs o el display de 7 segmentos
+
+#### 🔹 Visualización con LEDs
+
+Este subsistema recibe la **palabra corregida de 4 bits** desde el corrector.  
+Cada bit de esta palabra se conecta directamente a un LED en la FPGA.  
+No se requiere lógica adicional ni simplificación, ya que es una asignación directa:
+
+![Ecuaciones LEDs](imgs/leds_equations.png)
+
+Esto permite al usuario verificar visualmente en binario el resultado final corregido.
+
+---
+
+#### 🔹 Segmento A del display de 7 segmentos
+
+El display de 7 segmentos se utiliza para mostrar información en formato hexadecimal.  
+Cada uno de los segmentos (A–G) debe encenderse o apagarse en función de la combinación de los 4 bits de entrada (A, B, C, D).  
+Esto se logra mediante **ecuaciones booleanas simplificadas**, obtenidas a partir de **tablas de verdad** o **mapas de Karnaugh**.
+
+A continuación se muestra una de estas ecuaciones, específicamente para el segmento A del display:
+
+![Ecuación segmento A](imgs/segmentoA_equation.png)
+
+Este tipo de simplificación permite **reducir el uso de compuertas lógicas** y optimizar recursos en la FPGA.
 
 
-## 4. Simulaciones
+## 5. Simulaciones
 
 *(Aquí se incluirán capturas y análisis del comportamiento esperado de entrada/salida)*
 
-## 5. Análisis de recursos
+## 6. Análisis de recursos
 
 *(Aquí se incluirá el uso de LUTs, FFs, potencia si usaste herramientas de síntesis)*
 
-## 6. Problemas encontrados y soluciones
+## 7. Problemas encontrados y soluciones
 
 - Conexiones incorrectas en el display de 7 segmentos → resuelto revisando configuración de pines.
 - Error en bits de paridad → corregido tras verificar ecuaciones del síndrome.
