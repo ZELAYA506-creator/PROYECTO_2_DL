@@ -35,7 +35,7 @@ Como se observa, este proyecto no solo busca una solución funcional, sino tambi
 
 El sistema completo se estructura en tres bloques funcionales principales, que trabajan de forma coordinada y sincronizada para cumplir con la tarea de captura, procesamiento y despliegue del resultado de una suma aritmética. Cada bloque está encapsulado en un subsistema independiente que interactúa con los demás a través de señales de control y datos.
 
-### ** a. Subsistema de captura de datos**
+### **a. Subsistema de captura de datos**
 Este módulo se encarga de recibir las entradas del teclado hexadecimal tipo matriz 4x4. Está compuesto por los siguientes elementos: 
 
 - Un **debouncer** que elimina posibles rebotes mecánicos al presionar las teclas.  
@@ -44,10 +44,10 @@ Este módulo se encarga de recibir las entradas del teclado hexadecimal tipo mat
 - Un **contador** que verifica cuántos dígitos han sido ingresados (3 por número).
 - Dos **registros de almacenamiento**, cada uno de 12 bits, que guardan tres dígitos en formato BCD (4 bits por dígito).
 
-### ** b. Subsistema de suma aritmética**
+### **b. Subsistema de suma aritmética**
 Cuando se han capturado ambos números, este bloque realiza la suma binaria sin signo.
 
-### ** c. Subsistema de despliegue en displays**
+### **c. Subsistema de despliegue en displays**
 Muestra el resultado final de la suma en cuatro dígitos a través de los siguientes componentes:
 - **Conversión binaria a BCD** Utiliza el algoritmo “double dabble” para convertir el número binario de 13 bits a 4 dígitos BCD.
 - **Decodificador BCD a 7 segmentos** Convierte cada dígito BCD a la salida correspondiente en segmentos a–g.
