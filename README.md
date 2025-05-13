@@ -58,7 +58,7 @@ Este subsistema garantiza una visualización continua, estable y sin parpadeos v
 
 A continuación se describen los principales bloques funcionales del sistema, junto con los diagramas que ilustran el flujo de datos y control entre módulos. Cada uno de estos diagramas representa un subsistema clave en el procesamiento, desde la lectura hasta la visualización del resultado.
 
----
+![Figura 1](imgs/Figura1.png)
 
 ### Figura 1. Diagrama de bloques del subsistema de lectura del teclado hexadecimal
 
