@@ -31,28 +31,33 @@ Al finalizar este sistema debe ser capaz de:
 
 Como se observa, este proyecto no solo busca una solución funcional, sino también una implementación didáctica y profesional que pueda ser reproducida y mejorada en entornos académicos, con la finalidad de dar solución al problema planteado.
 
-## 3. Descripción general del funcionamiento del sistema
+## **3. Descripción general del funcionamiento del sistema**
 
-El sistema se divide en tres bloques principales que interactúan entre sí bajo un único reloj de 27 MHz. Cada subsistema cumple una función específica y se comunica por medio de señales de control definidas, asegurando una operación sincrónica, ordenada y confiable.
+El sistema completo se estructura en tres bloques funcionales principales, que trabajan de forma coordinada y sincronizada para cumplir con la tarea de captura, procesamiento y despliegue del resultado de una suma aritmética. Cada bloque está encapsulado en un subsistema independiente que interactúa con los demás a través de señales de control y datos.
 
----
+### ** a. Subsistema de captura de datos**
+Este módulo se encarga de recibir las entradas del teclado hexadecimal tipo matriz 4x4. Está compuesto por los siguientes elementos: 
 
-### 1. Subsistema de captura de datos
+- Un **debouncer** que elimina posibles rebotes mecánicos al presionar las teclas.  
+- Un **codificador de fila y columna**, que traduce la posición física presionada del teclado en un valor binario de 4 bits (hexadecimal).
+- Una **FSM de captura** (`fsm_captura`) que organiza la secuencia de ingreso y define cuándo capturar el valor, si pertenece al primer número (`num1`) o al segundo (`num2`).
+- Un **contador** que verifica cuántos dígitos han sido ingresados (3 por número).
+- Dos **registros de almacenamiento**, cada uno de 12 bits, que guardan tres dígitos en formato BCD (4 bits por dígito).
 
-Este módulo se encarga de recibir las entradas del teclado hexadecimal tipo matriz 4x4. Está compuesto por los siguientes elementos:
+### ** b. Subsistema de suma aritmética**
+Cuando se han capturado ambos números, este bloque realiza la suma binaria sin signo.
 
-#### Debouncer
+### ** c. Subsistema de despliegue en displays**
+Muestra el resultado final de la suma en cuatro dígitos a través de los siguientes componentes:
+- **Conversión binaria a BCD** Utiliza el algoritmo “double dabble” para convertir el número binario de 13 bits a 4 dígitos BCD.
+- **Decodificador BCD a 7 segmentos** Convierte cada dígito BCD a la salida correspondiente en segmentos a–g.
+- **Multiplexado de displays** Activa cada uno de los 4 dígitos de forma cíclica usando un contador.
+Este subsistema garantiza una visualización continua, estable y sin parpadeos visibles.
 
-Elimina los rebotes de teclas físicas mediante una FSM interna.
 
-```systemverilog
-module debouncer (
-  input logic clk, reset,
-  input logic tecla_raw,
-  output logic tecla_valida
-);
-// Lógica de antirrebote
-endmodule
+
+
+
 
 
 
