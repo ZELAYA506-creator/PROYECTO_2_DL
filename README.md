@@ -93,6 +93,57 @@ Este diagrama representa la máquina de estados finita (FSM) global que gobierna
 
 Este diagrama detalla la FSM local del módulo de lectura de teclado. Inicia en `ESPERA_TECLA`, esperando una pulsación válida. Al detectar una tecla, avanza a `CAPTURA_DIGITO`, donde almacena el valor. Luego pasa a `ESPERA_SOLTAR` para evitar rebotes, y sigue a `VERIFICA_DIGITOS` para contar cuántos dígitos se han ingresado. Si ya se capturaron 3 dígitos, pasa a `CAMBIA_NUMERO` (cambia de Num1 a Num2). Al capturar 6 dígitos (3 por número), entra en `LISTO`. Esta FSM asegura la captura ordenada y sin errores de cada dígito introducido.
 
+## 5. Diagramas de estado de las FSM diseñadas
+
+Para garantizar un control preciso y ordenado del sistema, se diseñaron dos máquinas de estados finitas (FSMs): una para el control general del sistema, y otra local para el proceso de captura de dígitos desde el teclado hexadecimal. Ambas FSMs fueron desarrolladas en SystemVerilog con lógica sincrónica y están documentadas gráficamente en los diagramas adjuntos.
+
+---
+
+### Figura 4. FSM de control general del sistema
+
+![FSM Principal](imgs/Figura4.png)
+
+Esta FSM es responsable de dirigir el flujo completo del sistema, desde que el usuario comienza la entrada de datos hasta que se muestra el resultado. Los estados definidos son:
+
+- **IDLE:** Estado inicial. El sistema espera que se presione una tecla.
+- **CAPTURA_1:** Se capturan los tres dígitos que forman el primer número.
+- **CAPTURA_2:** Se capturan los tres dígitos del segundo número.
+- **SUMA:** Realiza la suma binaria de los dos números almacenados.
+- **MOSTRAR:** Muestra el resultado en los cuatro displays de 7 segmentos.
+- **RESET:** Estado que permite volver a la condición inicial ante una nueva operación.
+
+**Transiciones clave:**
+- De `IDLE` a `CAPTURA_1`: se detecta una tecla presionada.
+- De `CAPTURA_1` a `CAPTURA_2`: tres dígitos completados y `num1_activo` desactivado.
+- De `CAPTURA_2` a `SUMA`: se completa el segundo número.
+- De `SUMA` a `MOSTRAR`: la suma se calcula inmediatamente.
+- De `MOSTRAR` a `RESET`: tras presionar el botón de reinicio o tras un retardo.
+
+Esta FSM asegura que los subsistemas trabajen de forma sincronizada, sin interferencias entre captura, procesamiento y visualización.
+
+---
+
+### Figura 5. FSM del módulo de lectura del teclado
+
+![FSM Captura Teclado](imgs/Figura5.png)
+
+Esta FSM local pertenece al módulo de lectura de teclado. Su función es controlar el proceso de captura de un dígito individual, eliminando rebotes y garantizando que cada pulsación se registre una sola vez. Los estados son:
+
+- **ESPERA_TECLA:** Espera que se presione una tecla válida (sin rebotes).
+- **CAPTURA_DIGITO:** Se registra el dígito detectado.
+- **ESPERA_SOLTAR:** Espera que la tecla sea soltada completamente.
+- **VERIFICA_DIGITOS:** Verifica si ya se ingresaron 3 dígitos. Si es así:
+  - Si el primer número está completo, pasa a `CAMBIA_NUMERO`.
+  - Si ambos números están completos, transita a `LISTO`.
+- **CAMBIA_NUMERO:** Cambia la bandera interna para comenzar a capturar el segundo número.
+- **LISTO:** Señal de finalización del proceso de captura.
+
+**Lógica de transición:**
+- El módulo utiliza entradas como `tecla_valida`, `tecla_soltada`, y `num1_completo` para moverse entre estados.
+- Genera las señales de salida `capturar`, `num1_activo` y `listo`.
+
+Esta FSM fue diseñada para trabajar en conjunto con el debouncer y el codificador fila/columna, formando una interfaz robusta entre el usuario y el sistema digital.
+
 
 
 
