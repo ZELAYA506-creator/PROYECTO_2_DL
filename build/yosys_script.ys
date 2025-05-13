@@ -1,0 +1,7 @@
+read_verilog -sv src/CodificadorHamming.sv
+read_verilog -sv src/DecodificadorHamming.sv
+read_verilog -sv src/LED_Display.sv
+read_verilog -sv src/SieteSeg_Display.sv
+read_verilog -sv src/TopModule.sv
+hierarchy -top TopModule
+synth_gowin -json build/top.json

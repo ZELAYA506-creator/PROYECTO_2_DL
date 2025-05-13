@@ -1,4 +1,4 @@
-# Proyecto 1 - Diseño Lógico (EL-3307)
+# Proyecto 2 - Diseño Lógico (EL-3307)
 
 ## 1. Descripción General
 

@@ -1,0 +1,68 @@
+IO_LOC  "data_in[0]" 83;
+IO_PORT "data_in[0]" DRIVE=8, IO_TYPE=LVCMOS18 PULL_MODE=NONE,;
+
+IO_LOC  "data_in[1]" 84;
+IO_PORT "data_in[1]" DRIVE=8, IO_TYPE=LVCMOS18 PULL_MODE=NONE,;
+
+IO_LOC  "data_in[2]" 85;
+IO_PORT "data_in[2]" DRIVE=8, IO_TYPE=LVCMOS18 PULL_MODE=NONE,;
+
+IO_LOC  "data_in[3]" 86;
+IO_PORT "data_in[3]" DRIVE=8, IO_TYPE=LVCMOS18 PULL_MODE=NONE,;
+
+IO_LOC  "encoded_out[0]" 87;
+IO_PORT "encoded_out[0]" DRIVE=8, IO_TYPE=LVCMOS18 PULL_MODE=NONE,;
+
+IO_LOC  "encoded_out[1]" 88;
+IO_PORT "encoded_out[1]" DRIVE=8, IO_TYPE=LVCMOS18 PULL_MODE=NONE,;
+
+IO_LOC  "encoded_out[2]" 89;
+IO_PORT "encoded_out[2]" DRIVE=8, IO_TYPE=LVCMOS18 PULL_MODE=NONE,;
+
+IO_LOC  "encoded_out[3]" 90;
+IO_PORT "encoded_out[3]" DRIVE=8, IO_TYPE=LVCMOS18 PULL_MODE=NONE,;
+
+IO_LOC  "encoded_out[4]" 91;
+IO_PORT "encoded_out[4]" DRIVE=8, IO_TYPE=LVCMOS18 PULL_MODE=NONE,;
+
+IO_LOC  "encoded_out[5]" 92;
+IO_PORT "encoded_out[5]" DRIVE=8, IO_TYPE=LVCMOS18 PULL_MODE=NONE,;
+
+IO_LOC  "encoded_out[6]" 93;
+IO_PORT "encoded_out[6]" DRIVE=8, IO_TYPE=LVCMOS18 PULL_MODE=NONE,;
+
+IO_LOC  "led[0]" 94;
+IO_PORT "led[0]" DRIVE=8, IO_TYPE=LVCMOS18 PULL_MODE=NONE,;
+
+IO_LOC  "led[1]" 95;
+IO_PORT "led[1]" DRIVE=8, IO_TYPE=LVCMOS18 PULL_MODE=NONE,;
+
+IO_LOC  "led[2]" 96;
+IO_PORT "led[2]" DRIVE=8, IO_TYPE=LVCMOS18 PULL_MODE=NONE,;
+
+IO_LOC  "led[3]" 97;
+IO_PORT "led[3]" DRIVE=8, IO_TYPE=LVCMOS18 PULL_MODE=NONE,;
+
+IO_LOC  "seg_out[0]" 98;
+IO_PORT "seg_out[0]" DRIVE=8, IO_TYPE=LVCMOS18 PULL_MODE=NONE,;
+
+IO_LOC  "seg_out[1]" 99;
+IO_PORT "seg_out[1]" DRIVE=8, IO_TYPE=LVCMOS18 PULL_MODE=NONE,;
+
+IO_LOC  "seg_out[2]" 100;
+IO_PORT "seg_out[2]" DRIVE=8, IO_TYPE=LVCMOS18 PULL_MODE=NONE,;
+
+IO_LOC  "seg_out[3]" 101;
+IO_PORT "seg_out[3]" DRIVE=8, IO_TYPE=LVCMOS18 PULL_MODE=NONE,;
+
+IO_LOC  "seg_out[4]" 102;
+IO_PORT "seg_out[4]" DRIVE=8, IO_TYPE=LVCMOS18 PULL_MODE=NONE,;
+
+IO_LOC  "seg_out[5]" 103;
+IO_PORT "seg_out[5]" DRIVE=8, IO_TYPE=LVCMOS18 PULL_MODE=NONE,;
+
+IO_LOC  "seg_out[6]" 104;
+IO_PORT "seg_out[6]" DRIVE=8, IO_TYPE=LVCMOS18 PULL_MODE=NONE,;
+
+IO_LOC  "switch_mode" 105;
+IO_PORT "switch_mode" DRIVE=8, IO_TYPE=LVCMOS18 PULL_MODE=DOWN,;
