@@ -31,4 +31,29 @@ Al finalizar este sistema debe ser capaz de:
 
 Como se observa, este proyecto no solo busca una solución funcional, sino también una implementación didáctica y profesional que pueda ser reproducida y mejorada en entornos académicos, con la finalidad de dar solución al problema planteado.
 
+## 3. Descripción general del funcionamiento del sistema
+
+El sistema se divide en tres bloques principales que interactúan entre sí bajo un único reloj de 27 MHz. Cada subsistema cumple una función específica y se comunica por medio de señales de control definidas, asegurando una operación sincrónica, ordenada y confiable.
+
+---
+
+### 1. Subsistema de captura de datos
+
+Este módulo se encarga de recibir las entradas del teclado hexadecimal tipo matriz 4x4. Está compuesto por los siguientes elementos:
+
+#### Debouncer
+
+Elimina los rebotes de teclas físicas mediante una FSM interna.
+
+```systemverilog
+module debouncer (
+  input logic clk, reset,
+  input logic tecla_raw,
+  output logic tecla_valida
+);
+// Lógica de antirrebote
+endmodule
+
+
+
 
