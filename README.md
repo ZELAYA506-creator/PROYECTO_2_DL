@@ -58,6 +58,7 @@ Este subsistema garantiza una visualización continua, estable y sin parpadeos v
 
 A continuación se describen los principales bloques funcionales del sistema, junto con los diagramas que ilustran el flujo de datos y control entre módulos. Cada uno de estos diagramas representa un subsistema clave en el procesamiento, desde la lectura hasta la visualización del resultado.
 
+---
 ![Figura 1](imgs/Figura1.png)
 
 ### Figura 1. Diagrama de bloques del subsistema de lectura del teclado hexadecimal
@@ -65,24 +66,28 @@ A continuación se describen los principales bloques funcionales del sistema, ju
 Este diagrama representa la primera etapa del sistema, encargada de capturar los datos desde el teclado físico. El proceso de lectura inicia con un barrido de columnas usando un contador de anillo (ring counter), el cual activa cada columna una por una. Las filas detectan si alguna tecla ha sido presionada, generando una señal que pasa por un módulo debouncer, encargado de eliminar rebotes mecánicos. Una vez estabilizada, la señal entra a un codificador que convierte la posición fila/columna en un valor hexadecimal de 4 bits. Finalmente, una unidad de control determina si el valor debe almacenarse en el registro `Num1` o `Num2`, según la etapa de captura en la que se encuentre el sistema.
 
 ---
+![Figura 2](imgs/Figura2.png)
 
 ### Figura 2. Diagrama de bloques del subsistema de suma aritmética
 
 Este diagrama muestra cómo se conectan los registros de entrada `Num1` y `Num2` con un sumador binario. Cada registro contiene 12 bits (3 dígitos decimales en BCD). El sumador opera de forma combinacional, sin requerir un reloj, y genera una salida de 13 bits que representa el resultado de la suma en binario sin signo. Esta operación es sencilla, pero crucial, pues establece la transición del sistema desde la captura hacia la visualización del resultado.
 
 ---
+![Figura 3](imgs/Figura3.png)
 
 ### Figura 3. Diagrama de bloques del subsistema de despliegue en displays de 7 segmentos
 
 Aquí se ilustra cómo se procesa el resultado binario para hacerlo legible al usuario. Primero, el número binario pasa por un conversor binario a BCD (`bin_to_bcd`), que separa el valor en unidades, decenas, centenas y millares. Luego, cada dígito BCD es transformado en su patrón de encendido correspondiente por medio del módulo `decoder_bcd_7seg`. Finalmente, un multiplexor de displays activa secuencialmente cada uno de los cuatro dígitos a una frecuencia que el ojo humano percibe como una imagen continua. Esto permite mostrar números de hasta cuatro cifras en solo cuatro displays físicos compartiendo las mismas líneas de segmentos.
 
 ---
+![Figura 4](imgs/Figura4.png)
 
 ### Figura 4. Diagrama de estados de la FSM de control del sistema
 
 Este diagrama representa la máquina de estados finita (FSM) global que gobierna la operación del sistema completo. Comienza en el estado `IDLE`, donde espera una pulsación de tecla. Luego transita por `CAPTURA 1` y `CAPTURA 2`, capturando los tres dígitos de cada número. Una vez que ambos están completos, pasa a `SUMA`, realiza la operación aritmética, y muestra el resultado en `MOSTRAR`. Finalmente, puede entrar en `RESET` para reiniciar el ciclo. Esta FSM es clave para sincronizar los tres subsistemas y garantizar que cada acción ocurra en el momento correcto.
 
 ---
+![Figura 5](imgs/Figura5.png)
 
 ### Figura 5. Diagrama de estados de la FSM del módulo de lectura del teclado
 
