@@ -341,10 +341,6 @@ El teclado hexadecimal permite capturar dígitos del 0 al F (0 a 15), pero el si
 **Solución aplicada:**  
 Se añadió una lógica de validación en el módulo de codificador que anulaba cualquier valor mayor a 9, evitando que se almacenaran códigos no decimales.
 
----
-
-### Conclusión
-
 Cada uno de estos problemas representó una oportunidad para reforzar el control lógico del sistema y optimizar su estabilidad, pero, gracias al enfoque modular con el que se partio desde un inicio fue posible corregir errores sin comprometer el diseño global ni introducir complejidad innecesaria.
 
 
