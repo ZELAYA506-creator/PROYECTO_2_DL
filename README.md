@@ -277,6 +277,75 @@ El sistema fue diseñado para operar bajo una única fuente de reloj de **27 MHz
 
 El uso de un solo reloj global, la lógica sincronizada y el bajo retardo combinacional permiten al sistema operar de manera eficiente a 27 MHz.
 
+## 9. Problemas hallados y soluciones aplicadas
+
+Durante el desarrollo del sistema se presentaron múltiples desafíos, principalmente en la etapa de captura de datos y sincronización del teclado con el control lógico. A continuación se describen los problemas más relevantes y cómo fueron resueltos mediante ajustes de diseño y lógica de control.
+
+---
+
+### a. Rebote mecánico del teclado
+
+**Problema:**  
+El teclado físico, al ser presionado, genera rebotes eléctricos que producen múltiples flancos por una sola pulsación. Esto ocasionaba que el mismo dígito se capturara más de una vez.
+
+**Solución aplicada:**  
+Se diseñó e integró un módulo `debouncer`, basado en una FSM interna con temporización, dicho módulo filtró señales inestables y generó una señal `tecla_valida` solo cuando la entrada permanecía estable durante un intervalo de tiempo determinado.
+
+---
+
+### b. Detección segura de tecla presionada y soltada
+
+**Problema:**  
+Era necesario diferenciar entre el momento en que una tecla era presionada y cuando era liberada, para evitar que una pulsación prolongada generara múltiples capturas de forma incorrecta.
+
+**Solución aplicada:**  
+Se implementó una FSM de captura (`fsm_captura`) que pasaba por el estado `ESPERA_SOLTAR` inmediatamente después de capturar un dígito. Este estado evitaba una segunda captura mientras la tecla permaneciera presionada. Solo al detectar la liberación (`tecla_soltada = 1`), el sistema avanzaba.
+
+---
+
+### c. Transición entre captura del primer y segundo número
+
+**Problema:**  
+Inicialmente no se lograba diferenciar correctamente cuándo debía dejarse de almacenar en el registro `Num1` y comenzar con `Num2`, lo que causaba que todos los dígitos ingresados se escribieran en el mismo registro.
+
+**Solución aplicada:**  
+Se incorporó una señal de control `num1_activo`, controlada por la FSM. Cuando se ingresaban 3 dígitos, la FSM pasaba al estado `CAMBIA_NUMERO` y actualizaba `num1_activo = 0`, permitiendo que las siguientes capturas se almacenaran en el segundo registro.
+
+---
+
+### d. Validación de cantidad de dígitos capturados
+
+**Problema:**  
+La FSM debía reconocer con precisión cuándo se habían ingresado 3 dígitos por número. En versiones previas, esto no se detectaba correctamente, causando que el sistema saltará prematuramente a la etapa de suma.
+
+**Solución aplicada:**  
+Se integró un contador de 2 bits que incrementaba en cada captura válida. Una vez alcanzado el valor 3, la FSM verificaba si debía pasar a `CAMBIA_NUMERO` (si estaba capturando Num1) o a `LISTO` (si ya tenía Num2 completo).
+
+---
+
+### e. Conflictos de sincronización entre FSMs
+
+**Problema:**  
+La FSM de captura y la FSM de control general debían trabajar en paralelo, pero en ocasiones sus estados se desincronizaban, generando errores como reinicio prematuro o bloqueo en la etapa de captura.
+
+**Solución aplicada:**  
+Se definieron condiciones claras de transición y sincronización mediante señales como `listo`, `capturar`, y `reset_local`. Además, se utilizó un único reloj en todo el sistema para evitar dominios de reloj cruzado.
+
+---
+
+### f. Detección de tecla fuera de rango
+
+**Problema:**  
+El teclado hexadecimal permite capturar dígitos del 0 al F (0 a 15), pero el sistema solo debía aceptar valores decimales del 0 al 9.
+
+**Solución aplicada:**  
+Se añadió una lógica de validación en el módulo de codificador que anulaba cualquier valor mayor a 9, evitando que se almacenaran códigos no decimales.
+
+---
+
+### Conclusión
+
+Cada uno de estos problemas representó una oportunidad para reforzar el control lógico del sistema y optimizar su estabilidad, pero, gracias al enfoque modular con el que se partio desde un inicio fue posible corregir errores sin comprometer el diseño global ni introducir complejidad innecesaria.
 
 
 
