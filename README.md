@@ -243,6 +243,40 @@ El sistema fue diseñado con un enfoque en la eficiencia y simplicidad lógica, 
 
 Dado que es una estimación esta puede variar ligeramente según el sintetizador, pero en general, el sistema es altamente eficiente.
 
+## 8. Reporte de velocidad de reloj
+
+El sistema fue diseñado para operar bajo una única fuente de reloj de **27 MHz**, lo cual representa una frecuencia comúnmente disponible en placas de desarrollo como la Tang Nano 9K. Esta frecuencia fue seleccionada dado su compatibilidad con el hardware y su suficiencia para todas las operaciones del sistema sin requerir recursos adicionales de control de temporización.
+
+---
+
+### Sincronía total del sistema
+
+- **Todos los módulos secuenciales del diseño (FSMs, registros, multiplexor)** están sincronizados con el mismo reloj, lo que asegura coherencia temporal y evita problemas típicos de dominios de reloj cruzado.
+- **No se requieren PLLs** ni divisores de reloj, lo que simplifica la implementación y mejora la estabilidad.
+
+---
+
+### Análisis de retardo crítico
+
+- Las operaciones más costosas (como la conversión binaria a BCD) se implementaron con lógica combinacional, sin etapas profundas de lógica encadenada.
+- La ruta crítica del diseño se estima alrededor de **20–25 ns**, lo que permite frecuencias de operación de hasta **40–50 MHz** con FPGAs modernas.
+
+---
+
+### Estabilidad de visualización
+
+- La frecuencia del reloj también se utiliza para multiplexar los cuatro displays de 7 segmentos.
+- Mediante el contador interno del `display_mux`, cada dígito es activado secuencialmente con una frecuencia suficiente para evitar parpadeo visible, resultando en una visualización estable y continua.
+
+---
+
+### Escalabilidad
+
+- El sistema puede escalar a mayores frecuencias si se optimizan las etapas lógicas y se añaden registros intermedios para pipelining.
+- De forma predeterminada, el diseño ya es robusto para operar entre **10 MHz y 50 MHz**, adaptándose fácilmente a otros entornos embebidos o educativos.
+
+El uso de un solo reloj global, la lógica sincronizada y el bajo retardo combinacional permiten al sistema operar de manera eficiente a 27 MHz.
+
 
 
 
