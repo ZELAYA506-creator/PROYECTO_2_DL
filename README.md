@@ -145,7 +145,7 @@ Esta FSM local pertenece al módulo de lectura de teclado. Su función es contro
 Esta FSM fue diseñada para trabajar en conjunto con el debouncer y el codificador fila/columna, formando una interfaz robusta entre el usuario y el sistema digital.
 
 
-## 5. Diagramas de ruta de datos
+## 5.1 Diagramas de ruta de datos
 
 A continuación se presentan los diagramas de ruta de datos para cada uno de los tres subsistemas principales del proyecto. Estos esquemas permiten visualizar el flujo de información y las señales internas que permiten el procesamiento sincronizado de los datos capturados, procesados y desplegados.
 
@@ -178,7 +178,7 @@ Una vez capturados los dos números desde el teclado, estos son almacenados en d
 
 ### Ruta de datos del subsistema de despliegue
 
-![Ruta de datos - Display](imgs/ruta_datos_display.png)
+![Ruta de datos - Display](imgs/ruta_datos_displays.png)
 
 Este bloque se encarga de recibir el resultado de la suma (en binario) y mostrarlo de forma visual en displays de 7 segmentos. El flujo de datos es el siguiente:
 
