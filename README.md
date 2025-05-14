@@ -185,6 +185,64 @@ Se utilizó $dumpfile("Final_tb_top.vcd") y $dumpvars para generar una traza de 
 
 El resultado final esperado fue 579, mostrado en los cuatro displays de 7 segmentos. Cada dígito fue activado correctamente mediante el display_mux.
 
+## 7. Análisis de consumo de recursos en FPGA
+
+El sistema fue diseñado con un enfoque en la eficiencia y simplicidad lógica, de modo que pueda ser fácilmente implementado en plataformas de bajo costo como la Tang Nano 9k. A continuación se detallan los recursos estimados y las decisiones de diseño adoptadas para optimizar el uso del hardware.
+
+---
+
+### Recursos utilizados por módulo
+
+- **FSMs (Captura y Control):**
+  - Cada FSM ocupa una pequeña cantidad de flip-flops para representar los estados.
+  - La lógica de transición es sencilla, basada en comparaciones de señales internas.
+  - Se estima un consumo de menos de 20 FFs por FSM.
+
+- **Registros de almacenamiento (Num1 y Num2):**
+  - Cada registro es de 12 bits.
+  - Almacenamiento realizado con flip-flops o registers del FPGA.
+  - Consumo estimado: 24 FFs en total.
+
+- **Sumador combinacional:**
+  - El sumador de 13 bits no requiere flip-flops ni memoria.
+  - Se implementa usando LUTs puras (Look-Up Tables).
+  - Requiere pocas LUTs ya que es una operación sencilla sin acarreo extendido.
+
+- **Conversor binario a BCD (`bin_to_bcd`):**
+  - Algoritmo Double Dabble implementado mediante desplazamientos.
+  - Ligeramente más costoso en LUTs por la lógica iterativa.
+  - Sin uso de recursos secuenciales si se implementa como combinacional.
+
+- **Decodificadores BCD a 7 segmentos:**
+  - Cada decodificador usa una pequeña cantidad de LUTs con lógica `case`.
+  - Requiere una instancia por dígito activo (4 en total).
+
+- **Multiplexado de displays:**
+  - Usa un contador de 2 bits para rotar entre los displays.
+  - La lógica de selección es mínima y altamente reutilizable.
+
+---
+
+### Ventajas del diseño
+
+- Bajo consumo de LUTs y FFs.
+- Sin bloques especiales, lo que permite implementarlo en FPGAs con pocos recursos.
+- Ideal para enseñanza, validación y prototipado rápido.
+- Compatible con herramientas como Gowin IDE, iCEcube2 o Quartus (según FPGA).
+
+---
+
+### Estimación global
+
+| Recurso      | Uso estimado |
+|--------------|--------------|
+| Flip-Flops   | 60–80  aprox |
+| LUTs         | 120–180 aprox|
+| RAM          | 0            |
+| DSPs         | 0            |
+
+Dado que es una estimación esta puede variar ligeramente según el sintetizador, pero en general, el sistema es altamente eficiente.
+
 
 
 
