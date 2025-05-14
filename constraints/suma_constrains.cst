@@ -1,0 +1,62 @@
+IO_LOC  "an[3]" 21;
+IO_PORT "an[3]" DRIVE=8 IO_TYPE=SSTL25_I;
+
+IO_LOC  "an[2]" 22;
+IO_PORT "an[2]" DRIVE=8 IO_TYPE=LVCMOS33;
+
+IO_LOC  "an[1]" 23;
+IO_PORT "an[1]" DRIVE=8 IO_TYPE=LVCMOS33;
+
+IO_LOC  "an[0]" 24;
+IO_PORT "an[0]" DRIVE=8 IO_TYPE=LVCMOS33;
+
+IO_LOC  "segmentos[6]" 37;
+IO_PORT "segmentos[6]" DRIVE=8 IO_TYPE=LVCMOS33;
+
+IO_LOC  "segmentos[5]" 36;
+IO_PORT "segmentos[5]" DRIVE=8 IO_TYPE=LVCMOS33;
+
+IO_LOC  "segmentos[4]" 35;
+IO_PORT "segmentos[4]" DRIVE=8 IO_TYPE=LVCMOS33;
+
+IO_LOC  "segmentos[3]" 34;
+IO_PORT "segmentos[3]" DRIVE=8 IO_TYPE=LVCMOS33;
+
+IO_LOC  "segmentos[2]" 33;
+IO_PORT "segmentos[2]" DRIVE=8 IO_TYPE=LVCMOS33;
+
+IO_LOC  "segmentos[1]" 32;
+IO_PORT "segmentos[1]" DRIVE=8 IO_TYPE=LVCMOS33;
+
+IO_LOC  "segmentos[0]" 31;
+IO_PORT "segmentos[0]" DRIVE=8 IO_TYPE=LVCMOS33;
+
+IO_LOC  "columna[3]" 15;
+IO_PORT "columna[3]" DRIVE=4 IO_TYPE=LVCMOS33;
+
+IO_LOC  "columna[2]" 14;
+IO_PORT "columna[2]" DRIVE=4 IO_TYPE=LVCMOS33;
+
+IO_LOC  "columna[1]" 13;
+IO_PORT "columna[1]" DRIVE=4 IO_TYPE=LVCMOS33;
+
+IO_LOC  "columna[0]" 12;
+IO_PORT "columna[0]" DRIVE=4 IO_TYPE=LVCMOS33;
+
+IO_LOC  "fila[3]" 11;
+IO_PORT "fila[3]" IO_TYPE=LVCMOS33 PULL_MODE=UP;
+
+IO_LOC  "fila[2]" 10;
+IO_PORT "fila[2]" IO_TYPE=LVCMOS33 PULL_MODE=UP;
+
+IO_LOC  "fila[1]" 9;
+IO_PORT "fila[1]" IO_TYPE=LVCMOS33 PULL_MODE=UP;
+
+IO_LOC  "fila[0]" 8;
+IO_PORT "fila[0]" IO_TYPE=LVCMOS33 PULL_MODE=UP;
+
+IO_LOC  "rst" 42;
+IO_PORT "rst" IO_TYPE=LVCMOS33 PULL_MODE=UP;
+
+IO_LOC  "clk" 41;
+IO_PORT "clk" IO_TYPE=LVCMOS33 PULL_MODE=UP;
