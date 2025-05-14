@@ -144,7 +144,46 @@ Esta FSM local pertenece al módulo de lectura de teclado. Su función es contro
 
 Esta FSM fue diseñada para trabajar en conjunto con el debouncer y el codificador fila/columna, formando una interfaz robusta entre el usuario y el sistema digital.
 
+## 6. Ejemplo y análisis de simulación funcional
 
+Para validar el comportamiento del sistema antes de su implementación en FPGA, se desarrolló un testbench en SystemVerilog (`tb_top.sv`). Este simula el ingreso de dos números de tres dígitos cada uno a través de un teclado hexadecimal. El objetivo de la simulación es verificar:
+
+- Que los datos se capturen correctamente desde el teclado.
+- Que la suma se realice con precisión.
+- Que el resultado se despliegue sin errores en los displays de 7 segmentos.
+
+---
+
+### Secuencia simulada
+
+En la simulación se ingresaron los números **123** y **456**. Esto se logró mediante llamadas a la tarea `simulate_keypress`, que activa una fila del teclado durante un tiempo determinado y luego la libera. La columna es generada por el diseño mediante barrido automático.
+
+Ejemplo de fragmento del testbench:
+
+```systemverilog
+simulate_keypress(4'b1110);  // Simula tecla 0 (fila 0 activa)
+#50000;
+simulate_keypress(4'b1101);  // Simula tecla 1
+#50000;
+simulate_keypress(4'b1011);  // Simula tecla 2
+#50000;
+
+// Segundo número: 4, 5, 6
+simulate_keypress(4'b0111);  // Tecla 3
+#50000;
+simulate_keypress(4'b1110);  // Tecla 0
+#50000;
+simulate_keypress(4'b1101);  // Tecla 1
+```
+### Resultados observados en GTKWave
+Se utilizó $dumpfile("Final_tb_top.vcd") y $dumpvars para generar una traza de simulación. En GTKWave se observaron:
+- Transiciones entre estados de la FSM de captura y de control global.
+- La activación correcta de las señales capturar, listo, num1_activo.
+- El registro secuencial de cada dígito presionado.
+- Activación del sumador una vez que los dos números estaban completos.
+- Conversión correcta a BCD y encendido ordenado de los displays.
+
+El resultado final esperado fue 579, mostrado en los cuatro displays de 7 segmentos. Cada dígito fue activado correctamente mediante el display_mux.
 
 
 
