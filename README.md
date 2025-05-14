@@ -144,6 +144,49 @@ Esta FSM local pertenece al módulo de lectura de teclado. Su función es contro
 
 Esta FSM fue diseñada para trabajar en conjunto con el debouncer y el codificador fila/columna, formando una interfaz robusta entre el usuario y el sistema digital.
 
+
+## 5. Diagramas de ruta de datos
+
+A continuación se presentan los diagramas de ruta de datos para cada uno de los tres subsistemas principales del proyecto. Estos esquemas permiten visualizar el flujo de información y las señales internas que permiten el procesamiento sincronizado de los datos capturados, procesados y desplegados.
+
+---
+
+### Ruta de datos del subsistema de lectura del teclado
+
+![Ruta de datos - Lectura](imgs/ruta_datos_lectura.png)
+
+Este subsistema inicia con las señales de entrada del sistema (`clk`, `rst`, `columnas`, `filas`) que alimentan tres componentes principales:
+
+- **Ring counter:** genera el barrido cíclico de las columnas del teclado y habilita el debounce.
+- **Filtro antirrebote:** limpia las señales provenientes del teclado y genera salidas estables que indican una pulsación válida.
+- **Codificador fila-columna:** transforma la combinación activa de fila y columna en un valor hexadecimal (tecla).
+- **FSM Captura:** gestiona la secuencia de captura de dígitos, y genera señales clave como `capturar`, `num1_activo` y `listo`, según el número y etapa actual.
+
+---
+
+### Ruta de datos del subsistema de suma
+
+![Ruta de datos - Suma](imgs/ruta_datos_suma.png)
+
+Una vez capturados los dos números desde el teclado, estos son almacenados en dos registros de 12 bits (`registro_num1` y `registro_num2`). A partir de ahí, la lógica opera como sigue:
+
+- Ambos registros son alimentados directamente a un **sumador sin signo** de 13 bits.
+- El resultado binario es almacenado temporalmente para su conversión posterior.
+- Este bloque no tiene lógica secuencial adicional, por lo que se ejecuta de forma puramente combinacional al completarse ambas entradas.
+
+---
+
+### Ruta de datos del subsistema de despliegue
+
+![Ruta de datos - Display](imgs/ruta_datos_display.png)
+
+Este bloque se encarga de recibir el resultado de la suma (en binario) y mostrarlo de forma visual en displays de 7 segmentos. El flujo de datos es el siguiente:
+
+- El resultado binario de 13 bits se ingresa al módulo `bin_to_bcd`, que implementa el algoritmo **Double Dabble** para obtener los cuatro dígitos en formato BCD.
+- Cada dígito BCD es enviado al **decodificador BCD–7 segmentos**, el cual traduce el valor al formato a–g del display.
+- Un **multiplexor de displays** activa uno a uno los dígitos mediante una señal `an` que se rota a velocidad fija con un contador sincrónico.
+
+
 ## 6. Ejemplo y análisis de simulación funcional
 
 Para validar el comportamiento del sistema antes de su implementación en FPGA, se desarrolló un testbench en SystemVerilog (`tb_top.sv`). Este simula el ingreso de dos números de tres dígitos cada uno a través de un teclado hexadecimal. El objetivo de la simulación es verificar:
